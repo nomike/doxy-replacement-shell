@@ -3,7 +3,7 @@
 // <kintel> you can also do interesting tricks using offset(), but again, that needs to be done in 2D space
 // <kintel> ..or finally, minkowski() {your_model(); sphere();} is often a decent trick
 
-$fn = 20;
+$fn = 64;
 wall_thickness = 2.5;
 
 motor_shaft_cutout_width = 2.6;

@@ -163,17 +163,3 @@ difference() {
     translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width + bottom_section_cone_width - bottom_opening_width]) cylinder(h=bottom_opening_width, r=bottom_opening_radius); // cable cutout
     translate([1, -30, 0]) cube([30, 60, 1000]); // cut in half for easier modelling
 }
-
-
-// difference() {
-//     difference() {
-//         union() {
-//             cylinder(h=aluminium_ring_section_with, r=aluminium_ring_section_radius);
-//             translate([0, 0, aluminium_ring_section_with]) cylinder(h=top_width, r=top_radius);
-//         }
-//         cylinder(h=motor_shaft_cutout_width, r=motor_shaft_cutout_radius);
-//         translate([0, 0, motor_shaft_cutout_width]) cylinder(h=aluminium_ring_section_with, r=aluminium_ring_section_radius-wall_thickness);
-//         // translate([0, 0, aluminium_ring_section_with + aluminium_ring_section_inner_overlap]) cylinder(h=top_width, r=top_radius - wall_thickness);
-//     }
-//     translate([0, -30, 0]) cube([30, 60, 100]); // cut in half for easier modelling
-// }

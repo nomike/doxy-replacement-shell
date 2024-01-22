@@ -58,33 +58,33 @@ difference() {
             union() {
                 difference() {
                     union() {
-                        difference() {
+                        difference() { // Front plate with motor shaft cutout
                             cylinder(h=motor_shaft_cutout_width, r=aluminium_ring_section_radius);
                             cylinder(h=motor_shaft_cutout_width, r=motor_shaft_cutout_radius);
                         }
-                        difference() {
+                        difference() { // Motor rubber ring cutout
                             translate([0,0,motor_shaft_cutout_width]) cylinder(h=aluminium_ring_section_with - motor_shaft_cutout_width, r=aluminium_ring_section_radius);
                             translate([0,0,motor_shaft_cutout_width]) cylinder(h=aluminium_ring_section_with - motor_shaft_cutout_width, r=aluminium_ring_section_radius - wall_thickness);
                         }
-                        difference() {
+                        difference() { // Top section
                             translate([0,0,aluminium_ring_section_with]) cylinder(h=top_width, r=top_radius);
                             translate([0,0,aluminium_ring_section_with]) cylinder(h=motor_anchor_width, r=aluminium_ring_section_radius - wall_thickness);
                             translate([0,0,aluminium_ring_section_with + motor_anchor_width]) cylinder(h=top_width - motor_anchor_width, r=top_radius - wall_thickness);
                             translate([0,0,aluminium_ring_section_with + motor_anchor_slit_offeset]) cylinder(h=motor_anchor_slit_width, r=top_radius - wall_thickness);
                         }
-                        difference() {
+                        difference() { // Grip cone
                             translate([0,0,aluminium_ring_section_with + top_width]) cylinder(h=grip_cone_width, r1=top_radius, r2=grip_cone_bottom_radius);
                             translate([0,0,aluminium_ring_section_with + top_width]) cylinder(h=grip_cone_width, r1=top_radius - wall_thickness, r2=grip_cone_bottom_radius - wall_thickness);
                         }
-                        difference() {
+                        difference() { // Middle section cone
                             translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width]) cylinder(h=middle_section_cone_width, r1=grip_cone_bottom_radius, r2=middle_section_cone_radius);
                             translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width]) cylinder(h=middle_section_cone_width, r1=grip_cone_bottom_radius - wall_thickness, r2=middle_section_cone_radius - wall_thickness);
                         }
-                        difference() {
+                        difference() { // Bottom section cone
                             translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width]) cylinder(h=bottom_section_cone_width, r1=middle_section_cone_radius, r2 = bottom_section_cone_radius);
                             translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width]) cylinder(h=bottom_section_cone_width - bottom_opening_width, r1=middle_section_cone_radius - wall_thickness, r2 = bottom_section_cone_radius - wall_thickness);
                         }
-                        if(button_half) {
+                        if(button_half) { // Screw holders for button half
                             difference() {
                                 translate([0 - top_radius + wall_thickness, 0, top_screw_holder_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_heigth, r=screw_holder_radius);
                                 translate([0 - top_radius + wall_thickness, 0, top_screw_holder_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_heigth, r=screw_holder_inner_radius);
@@ -97,7 +97,7 @@ difference() {
                                 translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_heigth, r=screw_holder_radius);
                                 translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_heigth, r=screw_holder_inner_radius);
                             }
-                        } else {
+                        } else { // Screw holders for other half
                             difference() {
                                 translate([0 - top_radius + wall_thickness, 0, top_screw_holder_offset]) rotate([0,90,0]) cylinder(h=top_radius + wall_thickness, r=screw_holder_radius);
                                 translate([0 - top_radius + wall_thickness, 0, top_screw_holder_offset]) rotate([0,90,0]) cylinder(h=top_radius + wall_thickness, r=screw_holder_inner_radius);
@@ -118,7 +118,7 @@ difference() {
 
                     }
                 }
-                if(button_half) {
+                if(button_half) { // inner button ridges
                     for (i = [0 : button_count - 1]) {
                             button_z = button_offset + button_radius + i * button_gap;
                             grip_cone_z = aluminium_ring_section_with + top_width;
@@ -137,7 +137,7 @@ difference() {
 
             translate([0, -30, 0]) cube([30, 60, 1000]); // cut in half for easier modelling
         }
-        if(button_half) {
+        if(button_half) { // connection ridge on the inside for button half
             difference() {
                 union() {
                     difference() { // top section
@@ -158,11 +158,11 @@ difference() {
                         translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width]) cylinder(h=bottom_section_cone_width - bottom_opening_width, r1=middle_section_cone_radius - wall_thickness, r2 = bottom_section_cone_radius - wall_thickness);
                     }
                 }
-                translate([-32, -30, 0]) cube([30, 60, 1000]); // cut in half for easier modelling
+                translate([-32, -30, 0]) cube([30, 60, 1000]); // cut in half
             }
         }   
     }
-    if(!button_half) {
+    if(!button_half) { // connection ridge on the outside for other half
         difference() {
             union() {
                 difference() { // top section
@@ -183,9 +183,9 @@ difference() {
                     translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width]) cylinder(h=bottom_section_cone_width - bottom_opening_width, r1=middle_section_cone_radius - wall_thickness, r2 = bottom_section_cone_radius - wall_thickness);
                 }
             }
-            translate([-32, -30, 0]) cube([30, 60, 1000]); // cut in half for easier modelling
+            translate([-32, -30, 0]) cube([30, 60, 1000]); // cut in half
         }
     }   
     translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width + bottom_section_cone_width - bottom_opening_width]) cylinder(h=bottom_opening_width, r=bottom_opening_radius); // cable cutout
-    translate([1, -30, 0]) cube([30, 60, 1000]); // cut in half for easier modelling
+    translate([1, -30, 0]) cube([30, 60, 1000]); // cut in half
 }

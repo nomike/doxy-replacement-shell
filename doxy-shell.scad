@@ -3,7 +3,7 @@
 // <kintel> you can also do interesting tricks using offset(), but again, that needs to be done in 2D space
 // <kintel> ..or finally, minkowski() {your_model(); sphere();} is often a decent trick
 
-$fn = 64;
+$fn = 32; // increase before final render
 wall_thickness = 2.5;
 
 motor_shaft_cutout_width = 2.6;
@@ -37,7 +37,7 @@ button_offset = 95;
 button_gap = 17;
 button_count = 3;
 
-button_half = false;
+button_half = true;
 
 
 screw_holder_radius = 4;

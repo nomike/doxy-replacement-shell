@@ -37,7 +37,7 @@ button_offset = 95;
 button_gap = 17;
 button_count = 3;
 
-button_half = true;
+button_half = false;
 
 
 screw_holder_radius = 4;
@@ -137,29 +137,55 @@ difference() {
 
             translate([0, -30, 0]) cube([30, 60, 1000]); // cut in half for easier modelling
         }
+        if(button_half) {
+            difference() {
+                union() {
+                    difference() { // top section
+                        translate([0,0,aluminium_ring_section_with + motor_anchor_width]) cylinder(h=top_width - motor_anchor_width, r=top_radius - (wall_thickness / 2));
+                        translate([0,0,aluminium_ring_section_with + motor_anchor_width]) cylinder(h=motor_anchor_width, r=aluminium_ring_section_radius - wall_thickness);
+                        translate([0,0,aluminium_ring_section_with + (motor_anchor_width * 2)]) cylinder(h=top_width - (motor_anchor_width * 2), r=top_radius - wall_thickness);
+                    }
+                    difference() { // grip cone
+                        translate([0,0,aluminium_ring_section_with + top_width]) cylinder(h=grip_cone_width, r1=top_radius - (wall_thickness / 2), r2=grip_cone_bottom_radius - (wall_thickness / 2));
+                        translate([0,0,aluminium_ring_section_with + top_width]) cylinder(h=grip_cone_width, r1=top_radius - wall_thickness, r2=grip_cone_bottom_radius - wall_thickness);
+                    }
+                    difference() { // middle section cone
+                        translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width]) cylinder(h=middle_section_cone_width, r1=grip_cone_bottom_radius - (wall_thickness / 2), r2=middle_section_cone_radius - (wall_thickness / 2));
+                        translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width]) cylinder(h=middle_section_cone_width, r1=grip_cone_bottom_radius - wall_thickness, r2=middle_section_cone_radius - wall_thickness);
+                    }
+                    difference() { // bottom section cone
+                        translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width]) cylinder(h=bottom_section_cone_width, r1=middle_section_cone_radius - (wall_thickness / 2), r2 = bottom_section_cone_radius - (wall_thickness / 2));
+                        translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width]) cylinder(h=bottom_section_cone_width - bottom_opening_width, r1=middle_section_cone_radius - wall_thickness, r2 = bottom_section_cone_radius - wall_thickness);
+                    }
+                }
+                translate([-32, -30, 0]) cube([30, 60, 1000]); // cut in half for easier modelling
+            }
+        }   
+    }
+    if(!button_half) {
         difference() {
             union() {
-                difference() {
-                    translate([0,0,aluminium_ring_section_with + top_width]) cylinder(h=grip_cone_width, r1=top_radius - (wall_thickness / 2), r2=grip_cone_bottom_radius - (wall_thickness / 2));
-                    translate([0,0,aluminium_ring_section_with + top_width]) cylinder(h=grip_cone_width, r1=top_radius - wall_thickness, r2=grip_cone_bottom_radius - wall_thickness);
-                }
-                difference() {
-                    translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width]) cylinder(h=middle_section_cone_width, r1=grip_cone_bottom_radius - (wall_thickness / 2), r2=middle_section_cone_radius - (wall_thickness / 2));
-                    translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width]) cylinder(h=middle_section_cone_width, r1=grip_cone_bottom_radius - wall_thickness, r2=middle_section_cone_radius - wall_thickness);
-                }
-                difference() {
-                    translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width]) cylinder(h=bottom_section_cone_width, r1=middle_section_cone_radius - (wall_thickness / 2), r2 = bottom_section_cone_radius - (wall_thickness / 2));
-                    translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width]) cylinder(h=bottom_section_cone_width - bottom_opening_width, r1=middle_section_cone_radius - wall_thickness, r2 = bottom_section_cone_radius - wall_thickness);
-                }
-                difference() {
+                difference() { // top section
                     translate([0,0,aluminium_ring_section_with + motor_anchor_width]) cylinder(h=top_width - motor_anchor_width, r=top_radius - (wall_thickness / 2));
                     translate([0,0,aluminium_ring_section_with + motor_anchor_width]) cylinder(h=motor_anchor_width, r=aluminium_ring_section_radius - wall_thickness);
                     translate([0,0,aluminium_ring_section_with + (motor_anchor_width * 2)]) cylinder(h=top_width - (motor_anchor_width * 2), r=top_radius - wall_thickness);
                 }
+                difference() { // grip cone
+                    translate([0,0,aluminium_ring_section_with + top_width]) cylinder(h=grip_cone_width, r1=top_radius - (wall_thickness / 2), r2=grip_cone_bottom_radius - (wall_thickness / 2));
+                    translate([0,0,aluminium_ring_section_with + top_width]) cylinder(h=grip_cone_width, r1=top_radius - wall_thickness, r2=grip_cone_bottom_radius - wall_thickness);
+                }
+                difference() { // middle section cone
+                    translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width]) cylinder(h=middle_section_cone_width, r1=grip_cone_bottom_radius - (wall_thickness / 2), r2=middle_section_cone_radius - (wall_thickness / 2));
+                    translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width]) cylinder(h=middle_section_cone_width, r1=grip_cone_bottom_radius - wall_thickness, r2=middle_section_cone_radius - wall_thickness);
+                }
+                difference() { // bottom section cone
+                    translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width]) cylinder(h=bottom_section_cone_width, r1=middle_section_cone_radius - (wall_thickness / 2), r2 = bottom_section_cone_radius - (wall_thickness / 2));
+                    translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width]) cylinder(h=bottom_section_cone_width - bottom_opening_width, r1=middle_section_cone_radius - wall_thickness, r2 = bottom_section_cone_radius - wall_thickness);
+                }
             }
             translate([-32, -30, 0]) cube([30, 60, 1000]); // cut in half for easier modelling
         }
-    }
+    }   
     translate([0,0,aluminium_ring_section_with + top_width + grip_cone_width + middle_section_cone_width + bottom_section_cone_width - bottom_opening_width]) cylinder(h=bottom_opening_width, r=bottom_opening_radius); // cable cutout
     translate([1, -30, 0]) cube([30, 60, 1000]); // cut in half for easier modelling
 }

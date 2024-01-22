@@ -42,6 +42,8 @@ button_half = false;
 
 screw_holder_radius = 4;
 screw_holder_inner_radius = 1.35;
+screw_holder_screwhead_insert_wall_thickness = 0.5;
+screw_holder_screwhead_insert_depth = 10;
 
 top_screw_holder_heigth = 11;
 top_screw_holder_offset = 74;
@@ -116,6 +118,9 @@ difference() {
                             translate([0 - top_radius, 0, button_z]) rotate([0,90,0])  cylinder(h=30, r=button_radius);
                         }
 
+                    } else { // screw holes
+                                translate([0 - top_radius, 0, top_screw_holder_offset]) rotate([0,90,0]) cylinder(h=screw_holder_screwhead_insert_depth, r=screw_holder_radius - screw_holder_screwhead_insert_wall_thickness);
+                                translate([bottom_screw_holder_x_offset - wall_thickness, 0, bottom_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=screw_holder_screwhead_insert_depth, r=screw_holder_radius - screw_holder_screwhead_insert_wall_thickness);
                     }
                 }
                 if(button_half) { // inner button ridges

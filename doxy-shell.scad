@@ -45,7 +45,7 @@ screw_holder_inner_radius = 1.35;
 screw_holder_screwhead_insert_wall_thickness = 0.5;
 screw_holder_screwhead_insert_depth = 10;
 
-top_screw_holder_heigth = 11;
+top_screw_holder_height = 11;
 top_screw_holder_offset = 74;
 
 pcb_screw_holder_z_offset = 150;
@@ -88,16 +88,16 @@ difference() {
                         }
                         if(button_half) { // Screw holders for button half
                             difference() {
-                                translate([0 - top_radius + wall_thickness, 0, top_screw_holder_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_heigth, r=screw_holder_radius);
-                                translate([0 - top_radius + wall_thickness, 0, top_screw_holder_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_heigth, r=screw_holder_inner_radius);
+                                translate([0 - top_radius + wall_thickness, 0, top_screw_holder_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_height, r=screw_holder_radius);
+                                translate([0 - top_radius + wall_thickness, 0, top_screw_holder_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_height, r=screw_holder_inner_radius);
                             }
                             difference() {
-                                translate([pcb_screw_holder_x_offset, 0, pcb_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_heigth, r=screw_holder_radius);
-                                translate([pcb_screw_holder_x_offset, 0, pcb_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_heigth, r=screw_holder_inner_radius);
+                                translate([pcb_screw_holder_x_offset, 0, pcb_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_height, r=screw_holder_radius);
+                                translate([pcb_screw_holder_x_offset, 0, pcb_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_height, r=screw_holder_inner_radius);
                             }
                             difference() {
-                                translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_heigth, r=screw_holder_radius);
-                                translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_heigth, r=screw_holder_inner_radius);
+                                translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_height, r=screw_holder_radius);
+                                translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0,90,0]) cylinder(h=top_screw_holder_height, r=screw_holder_inner_radius);
                             }
                         } else { // Screw holders for other half
                             difference() {

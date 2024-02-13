@@ -1,0 +1,18 @@
+{
+  "thing": {
+    "name": "Doxy Replacement Shell",
+    "category": "",
+    "tags": [
+      ""
+    ],
+    "instructions": "Print and enjoy",
+    "is_wip": true,
+    "license": "gpl3"
+  },
+  "files": [
+    "doxy-shell.scad",
+    "doxy-shell-button-half.stl",
+    "doxy-shell-nonbutton-hald.stl"
+  ],
+  "images": []
+}

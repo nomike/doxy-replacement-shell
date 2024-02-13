@@ -1,9 +1,12 @@
 {
   "thing": {
     "name": "Doxy Replacement Shell",
-    "category": "",
+    "category": "Other",
     "tags": [
-      ""
+      "Doxy",
+      "Doxy_Wand",
+      "Doxy_Wand_Massager",
+      "replacement_part"
     ],
     "instructions": "Print and enjoy",
     "is_wip": true,

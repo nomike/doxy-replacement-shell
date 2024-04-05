@@ -1,15 +1,15 @@
-.PHONY: all	clean publish
+# Output directory for generated STL files
+OUTPUT_DIR = output
 
-all: doxy-shell-button-half.stl doxy-shell-nonbutton-half.stl
+.PHONY: all generate_stls clean
+
+all: $(OUTPUT_DIR) generate_stls
+
+$(OUTPUT_DIR):
+	mkdir -p $@
+
+generate_stls:
+	openscad_stl_file_generator/generate_stls --output-dir="$(OUTPUT_DIR)"
 
 clean:
-	rm -f doxy-shell-button-half.stl doxy-shell-nonbutton-half.stl
-
-doxy-shell-button-half.stl: doxy-shell.scad
-	openscad -o doxy-shell-button-half.stl doxy-shell.scad -D button_half=true -D '$$fn=255'
-
-doxy-shell-nonbutton-half.stl: doxy-shell.scad
-	openscad -o doxy-shell-nonbutton-half.stl doxy-shell.scad -D button_half=false -D '$$fn=255'
-
-publish: doxy-shell-button-half.stl doxy-shell-nonbutton-half.stl
-	thingiverse-publisher
+	rm -rf $(OUTPUT_DIR)

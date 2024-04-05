@@ -1,0 +1,3 @@
+[submodule "openscad_stl_file_generator"]
+	path = openscad_stl_file_generator
+	url = ../openscad_stl_file_generator

@@ -1,0 +1,11 @@
+{
+    "parameterSets": {
+        "button_half": {
+            "button_half": "true"
+        },
+        "nonbutton_half": {
+            "button_half": "false"
+        }
+    },
+    "fileFormatVersion": "1"
+}

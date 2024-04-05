@@ -38,7 +38,7 @@ motor_anchor_width = 7.5;
 motor_anchor_slit_width = 2.5;
 motor_anchor_slit_offeset = 2.5;
 
-grip_cone_width = 93;
+grip_cone_width = 107;
 grip_cone_bottom_radius = 16.5;
 
 middle_section_cone_width = 26;
@@ -66,7 +66,7 @@ screw_holder_screwhead_insert_depth = 10;
 top_screw_holder_height = 11;
 top_screw_holder_offset = 74;
 
-pcb_screw_holder_z_offset = 150;
+pcb_screw_holder_z_offset = 153;
 pcb_screw_holder_x_offset = -16;
 
 bottom_screw_holder_z_offset = 190;

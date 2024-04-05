@@ -8,16 +8,21 @@
       "Doxy_Wand_Massager",
       "replacement_part"
     ],
-    "instructions": "Print and enjoy",
     "is_wip": true,
     "license": "gpl3",
-    "description": "# Doxy Replacment shell\n\nA replacement shell for the original Doxy Massager.\n\nThis is work in progress, I haven't come round to printing it yet. There probably will be some updates to the design once I've don the first test print.\n\n# Known issues\n\nThe design doesn't have smooth curves like the original, as I don't know yet how to do that in OpenSCAD. I'm open to suggestions.\nThus you have to replace both halves of the original shell, even if only one is broken.\n\n# License\n\nThis project is licensed under the GNU General Public License v3.0 (GPL-3.0).\n\n# Source\n\nThe [source of this model](https://github.com/nomike/doxy-replacement-shell) can be found on GitHub.",
     "id": 6482729
   },
-  "files": [
-    "doxy-shell.scad",
-    "doxy-shell-button-half.stl",
-    "doxy-shell-nonbutton-half.stl"
-  ],
-  "images": []
+  "files": {
+    "output/doxy-shell-button_half.stl": {
+      "id": 14287796,
+      "name": "doxy-shell-button_half.stl",
+      "url": "https://www.thingiverse.com/download:14287796"
+    },
+    "output/doxy-shell-nonbutton_half.stl": {
+      "id": 14287797,
+      "name": "doxy-shell-nonbutton_half.stl",
+      "url": "https://www.thingiverse.com/download:14287797"
+    }
+  },
+  "images": {}
 }

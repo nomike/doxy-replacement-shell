@@ -9,14 +9,14 @@
       "replacement_part"
     ],
     "is_wip": true,
-    "license": "bsd",
+    "license": "BSD License",
     "id": 6482729
   },
   "files": {
     "doxy-shell.scad": {
-      "id": 14287804,
+      "id": 14298970,
       "name": "doxy-shell.scad",
-      "url": "https://www.thingiverse.com/download:14287804"
+      "url": "https://www.thingiverse.com/download:14298970"
     },
     "doxy-shell.json": {
       "id": 14287807,

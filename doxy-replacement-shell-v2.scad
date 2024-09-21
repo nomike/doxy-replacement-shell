@@ -170,7 +170,7 @@ module inner_ridge(outer_radius1, inner_radius1, outer_radius2, inner_radius2, r
         );
 }
 
-module draw_shaft_segments(shaft_segments, outer_ridge, idx=0) {
+module draw_shaft_segments(shaft_segments, outer_ridge, hollow=true, idx=0) {
     outer_radius1 = shaft_segments[idx][0];
     inner_radius1 = shaft_segments[idx][1];
     outer_radius2 = shaft_segments[idx][2];
@@ -192,7 +192,7 @@ module draw_shaft_segments(shaft_segments, outer_ridge, idx=0) {
         translate([ridge_height, 0, 0]) rotate([0, 0, 90]) inner_ridge(outer_radius1, inner_radius1, outer_radius2, inner_radius2, ridge_height, height);
     }
     if(idx < len(shaft_segments) - 1) {
-        translate([0, 0, height - epsilon]) draw_shaft_segments(shaft_segments, outer_ridge, idx + 1);
+        translate([0, 0, height - epsilon]) draw_shaft_segments(shaft_segments, outer_ridge, hollow, idx + 1);
     }
 }
 
@@ -230,7 +230,7 @@ module nonbutton_half() {
     difference() {
         union() {
             // Shaft segments
-            translate([0, 0, -epsilon]) draw_shaft_segments(shaft_segments, true);
+            translate([0, 0, -epsilon]) draw_shaft_segments(shaft_segments, true, true);
 
             // screw holder at the cable end of the grip
             translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, 0 - bottom_screw_holder_x_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset, false, screw_holder_fn);

@@ -105,6 +105,11 @@ function sum_shaft_segment_heights(shaft_segments, from, to, sum=0) =
     sum + shaft_segments[from][4] :
     sum_shaft_segment_heights(shaft_segments, from+1, to, sum + shaft_segments[from][4]);
 
+function get_max_dimension(array, position, idx=0, max=0) = 
+    idx == len(array) ?
+    max :
+    get_max_dimension(array, position, idx + 1, max(array[idx][position], max));
+
 // caculate head end screw holder
 grip_cone_start = sum_shaft_segment_heights(shaft_segments, 0, 5);
 grip_cone_end = sum_shaft_segment_heights(shaft_segments, 0, 6);

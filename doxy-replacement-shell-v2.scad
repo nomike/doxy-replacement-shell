@@ -84,9 +84,12 @@ screw_holder_inner_diameter_button_half = 3.2;
 screw_holder_filet_diameter = 3.2;
 screw_holder_fn = 128;
 screw_holder_screwhead_insert_wall_thickness = 0.5;
-screw_holder_screwhead_insert_offset = 6;
+screw_holder_screwhead_insert_offset_cable = 6;
+screw_holder_screwhead_insert_offset_pcb = 6;
+screw_holder_screwhead_insert_offset_head = 2.5;
 screw_holder_screwhead_insert_depth = 10;
 screw_holder_screwhead_insert_diameter = 7;
+screw_holder_support_width = 5;
 
 top_screw_holder_height = 11;
 top_screw_holder_offset = 74;
@@ -97,7 +100,7 @@ pcb_screw_holder_height = -pcb_screw_holder_x_offset - 10.0;
 
 bottom_screw_holder_z_offset = 190;
 bottom_screw_holder_x_offset = -15;
-bottom_screw_holder_height = 0 - bottom_screw_holder_x_offset + ridge_height;
+bottom_screw_holder_height = 0 - bottom_screw_holder_x_offset;
 epsilon = 0.001;
 
 function sum_shaft_segment_heights(shaft_segments, from, to, sum=0) = 
@@ -121,8 +124,9 @@ grip_cone_overlap_percent = grip_cone_overlap / grip_cone_length;
 
 grip_cone_reduction = shaft_segments[6][1] - shaft_segments[6][3];
 foo_offset = shaft_segments[6][1] - grip_cone_overlap_percent * grip_cone_reduction;
+display_gap = 1;
 
-
+clean_outer_surface = true;
 
 module outer_ridge(outer_radius1, inner_radius1, outer_radius2, inner_radius2, ridge_height, height) {
         polyhedron(points = [
@@ -178,7 +182,9 @@ module draw_shaft_segments(shaft_segments, outer_ridge, hollow=true, idx=0) {
     height = shaft_segments[idx][4] + epsilon;
     difference() {
         cylinder(h=height, r1=outer_radius1, r2=outer_radius2);
-        translate([0, 0, -epsilon]) cylinder(h=height + 2 * epsilon, r1=inner_radius1, r2=inner_radius2);
+        if (hollow) {
+            translate([0, 0, -epsilon]) cylinder(h=height + 2 * epsilon, r1=inner_radius1, r2=inner_radius2);
+        }
         translate([0, -max(outer_radius1, outer_radius2) - epsilon, -epsilon]) cube([max(outer_radius1, outer_radius2) + epsilon, 2 * max(outer_radius1, outer_radius2)  + 2 * epsilon, height + 2 * epsilon]);
     }
 
@@ -196,7 +202,7 @@ module draw_shaft_segments(shaft_segments, outer_ridge, hollow=true, idx=0) {
     }
 }
 
-module screw_hole(screw_diameter, cylinder_diameter, height, fillet_diameter, screwhead_insert_diameter, screwhead_insert_depth, screwhead_insert=false, fillet_fn=$fn) {
+module screw_hole(screw_diameter, cylinder_diameter, height, fillet_diameter, screwhead_insert_diameter, screwhead_insert_depth, screw_holder_support_fraction = 1.0, screwhead_insert=false, fillet_fn=$fn) {
     if(screwhead_insert) {
         translate([0, 0, -epsilon - 10]) cylinder(d=screwhead_insert_diameter, h=height - screwhead_insert_depth, $fn=fillet_fn);
     } else {
@@ -209,19 +215,18 @@ module screw_hole(screw_diameter, cylinder_diameter, height, fillet_diameter, sc
                 square([fillet_diameter, fillet_diameter]); 
                 translate([fillet_diameter, fillet_diameter]) circle(r=fillet_diameter, $fn=fillet_fn);
             }
-            for(i = [0, 180]) {
-                rotate([0, 0, i])foo(cylinder_diameter, height);
+            for(i = [0, 90, 180, 270]) {
+                rotate([0, 0, i]) screw_holder_support(cylinder_diameter, height - epsilon);
             }
         }
     }
 }
 
-module foo(cylinder_diameter, height) {
-    structural_support_width = 5;
+module screw_holder_support(cylinder_diameter, height) {
     translate([(cylinder_diameter / 2) - 1, 0, 0])
     difference() {
-        translate([0, -structural_support_width / 2, 0]) cube([height, structural_support_width, height]);
-        translate([0, -structural_support_width / 2 - epsilon, sqrt(pow(height, 2))]) rotate([0, 45, 0]) cube([sqrt(2 * pow(height, 2)), structural_support_width + 2 * epsilon, sqrt(2 * pow(height, 2))]);
+        translate([0, -screw_holder_support_width / 2, 0]) cube([height, screw_holder_support_width, height]);
+        translate([0, -screw_holder_support_width / 2 - epsilon, sqrt(pow(height, 2))]) rotate([0, 45, 0]) cube([sqrt(2 * pow(height, 2)), screw_holder_support_width + 2 * epsilon, sqrt(2 * pow(height, 2))]);
     }
 }
 
@@ -233,18 +238,47 @@ module nonbutton_half() {
             translate([0, 0, -epsilon]) draw_shaft_segments(shaft_segments, true, true);
 
             // screw holder at the cable end of the grip
-            translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, 0 - bottom_screw_holder_x_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset, false, screw_holder_fn);
+            translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, 0 - bottom_screw_holder_x_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_cable, 1.0, false, screw_holder_fn);
 
             // screw holder at the head end of the grip
-            translate([0 - foo_offset, 0, top_screw_holder_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, foo_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset, false, screw_holder_fn);
+            translate([0 - foo_offset, 0, top_screw_holder_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, foo_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_head, 0.7, false, screw_holder_fn);
         }
         
         // screw holder at the cable end of the grip
-        translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, 0 - bottom_screw_holder_x_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset, true, screw_holder_fn);
+        translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, 0 - bottom_screw_holder_x_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_cable, 1.0, true, screw_holder_fn);
 
         // screw holder at the head end of the grip
-        translate([0 - foo_offset, 0, top_screw_holder_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, foo_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset, true, screw_holder_fn);
+        translate([0 - foo_offset, 0, top_screw_holder_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, foo_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_head, 1.0, true, screw_holder_fn);
+        if (clean_outer_surface) {
+            difference() {
+                translate([-50, -50, -epsilon]) cube([100, 100, 500]);
+                translate([0, 0, -epsilon]) draw_shaft_segments(shaft_segments, true, false);
+            }
+        }
     }
+}
+
+module button_holes() {
+    for (i = [0 : button_count - 1]) {
+        button_z = button_offset + button_radius + i * button_gap;
+        translate([0 - top_radius, 0, button_z]) rotate([0,90,0])  cylinder(h=30, r=button_radius);
+    }
+}
+
+module button_hole_ridges() {
+    for (i = [0 : button_count - 1]) {
+        button_z = button_offset + button_radius + i * button_gap;
+        grip_cone_z = aluminium_ring_section_with + top_width;
+        grip_cone_z2 = aluminium_ring_section_with + top_width + grip_cone_width;
+
+        button_percent = (button_z - grip_cone_z) / (grip_cone_z2 - grip_cone_z);
+        button_x_offset = top_radius - ((top_radius - grip_cone_bottom_radius) * button_percent);
+        difference() {
+            translate([0 - button_x_offset + 1, 0, button_z]) rotate([0,90,0])  cylinder(h=4, r=button_radius + 1);
+            translate([0 - button_x_offset - 5, 0, button_z]) rotate([0,90,0])  cylinder(h=60, r=button_radius);
+        }
+    }
+
 }
 
 module button_half() {
@@ -252,40 +286,33 @@ module button_half() {
         difference() {
             union() {
                 // Shaft segments
-                translate([0, 0, -epsilon]) draw_shaft_segments(shaft_segments, false);
+                translate([0, 0, -epsilon]) draw_shaft_segments(shaft_segments, false, true);
 
                 // screw holder at the cable end of the grip
-                translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter_button_half, screw_holder_diameter, 0 - bottom_screw_holder_x_offset, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset, false, screw_holder_fn);
+                translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, 0 - bottom_screw_holder_x_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_cable, 1.0, false, screw_holder_fn);
 
                 // screw holder for the PCB screw
 
-                translate([pcb_screw_holder_x_offset, 0, pcb_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter_button_half, screw_holder_diameter, pcb_screw_holder_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset, false, screw_holder_fn);
+                translate([pcb_screw_holder_x_offset, 0, pcb_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter_button_half, screw_holder_diameter, pcb_screw_holder_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_pcb, 1.0, false, screw_holder_fn);
 
                 // screw holder at the head end of the grip
-                translate([0 - foo_offset, 0, top_screw_holder_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter_button_half, screw_holder_diameter, 7.4, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset, false, screw_holder_fn);
-            }
-            
-            // buttons
-            for (i = [0 : button_count - 1]) {
-                button_z = button_offset + button_radius + i * button_gap;
-                translate([0 - top_radius, 0, button_z]) rotate([0,90,0])  cylinder(h=30, r=button_radius);
-            }
-        }
-        for (i = [0 : button_count - 1]) {
-            button_z = button_offset + button_radius + i * button_gap;
-            grip_cone_z = aluminium_ring_section_with + top_width;
-            grip_cone_z2 = aluminium_ring_section_with + top_width + grip_cone_width;
-
-            button_percent = (button_z - grip_cone_z) / (grip_cone_z2 - grip_cone_z);
-            button_x_offset = top_radius - ((top_radius - grip_cone_bottom_radius) * button_percent);
-            difference() {
-                translate([0 - button_x_offset + 1, 0, button_z]) rotate([0,90,0])  cylinder(h=4, r=button_radius + 1);
-                translate([0 - button_x_offset - 5, 0, button_z]) rotate([0,90,0])  cylinder(h=60, r=button_radius);
+                translate([0 - foo_offset, 0, top_screw_holder_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter_button_half, screw_holder_diameter, 7.4, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_head, 1.0, false, screw_holder_fn);
+            }            
+            button_holes();
+            if (clean_outer_surface) {
+                difference() {
+                    translate([-100 + epsilon, -50, -epsilon]) cube([100, 100, 500]);
+                    translate([0, 0, -epsilon]) draw_shaft_segments(shaft_segments, false, false);
+                }
             }
         }
+        button_hole_ridges();
     }
 }
 
-display_gap = 50;
-color("Aquamarine") translate([0, -display_gap/2, 0]) nonbutton_half();
-color("MediumVioletRed") translate([0, display_gap/2, 0]) button_half();
+max_diameter = max(get_max_dimension(shaft_segments, 0), get_max_dimension(shaft_segments, 2));
+
+color("Aquamarine") 
+translate([0, -display_gap - max_diameter, 0]) nonbutton_half();
+color("MediumVioletRed")
+translate([0, display_gap + max_diameter, 0]) button_half();

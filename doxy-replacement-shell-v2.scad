@@ -128,6 +128,9 @@ display_gap = 1;
 
 clean_outer_surface = true;
 
+render_buttonhalf = true;
+render_nonbuttonhalf = false;
+
 module outer_ridge(outer_radius1, inner_radius1, outer_radius2, inner_radius2, ridge_height, height) {
         polyhedron(points = [
                 [outer_radius1,ridge_height,0], // 0
@@ -312,7 +315,11 @@ module button_half() {
 
 max_diameter = max(get_max_dimension(shaft_segments, 0), get_max_dimension(shaft_segments, 2));
 
-color("Aquamarine") 
-translate([0, -display_gap - max_diameter, 0]) nonbutton_half();
-color("MediumVioletRed")
-translate([0, display_gap + max_diameter, 0]) button_half();
+if (render_nonbuttonhalf) {
+    color("Aquamarine") 
+    translate([0, -display_gap - max_diameter, 0]) nonbutton_half();
+}
+if (render_buttonhalf) {
+    color("Tomato")
+    translate([0, display_gap + max_diameter, 0]) button_half();
+}

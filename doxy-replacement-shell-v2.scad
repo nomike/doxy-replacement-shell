@@ -100,7 +100,7 @@ pcb_screw_holder_height = -pcb_screw_holder_x_offset - 10.0;
 silicon_button_piece_thickness = 1;
 
 bottom_screw_holder_z_offset = 190;
-bottom_screw_holder_x_offset = -15;
+bottom_screw_holder_x_offset = -17;
 bottom_screw_holder_height = 0 - bottom_screw_holder_x_offset;
 epsilon = 0.001;
 

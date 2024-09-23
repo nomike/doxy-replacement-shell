@@ -292,7 +292,7 @@ module button_half() {
                 translate([0, 0, -epsilon]) draw_shaft_segments(shaft_segments, false, true);
 
                 // screw holder at the cable end of the grip
-                translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, 0 - bottom_screw_holder_x_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_cable, 1.0, false, screw_holder_fn);
+                translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter_button_half, screw_holder_diameter, 0 - bottom_screw_holder_x_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_cable, 1.0, false, screw_holder_fn);
 
                 // screw holder for the PCB screw
 

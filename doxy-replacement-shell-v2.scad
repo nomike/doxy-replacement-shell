@@ -130,7 +130,7 @@ display_gap = 1;
 clean_outer_surface = true;
 
 render_buttonhalf = true;
-render_nonbuttonhalf = false;
+render_nonbuttonhalf = true;
 
 module outer_ridge(outer_radius1, inner_radius1, outer_radius2, inner_radius2, ridge_height, height) {
         polyhedron(points = [

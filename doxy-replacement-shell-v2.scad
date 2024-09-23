@@ -101,7 +101,7 @@ grip_cone_reduction = shaft_segments[6][1] - shaft_segments[6][3];
 foo_offset = shaft_segments[6][1] - grip_cone_overlap_percent * grip_cone_reduction;
 display_gap = 1;
 
-clean_outer_surface = false;
+clean_outer_surface = true;
 
 render_buttonhalf = true;
 render_nonbuttonhalf = true;

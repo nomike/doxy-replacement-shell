@@ -97,6 +97,7 @@ top_screw_holder_offset = 74;
 pcb_screw_holder_z_offset = 155.8;
 pcb_screw_holder_x_offset = -15.35;
 pcb_screw_holder_height = -pcb_screw_holder_x_offset - 10.0;
+silicon_button_piece_thickness = 1;
 
 bottom_screw_holder_z_offset = 190;
 bottom_screw_holder_x_offset = -15;
@@ -301,6 +302,8 @@ module button_half() {
                 // screw holder at the head end of the grip
                 translate([0 - foo_offset, 0, top_screw_holder_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter_button_half, screw_holder_diameter, 7.4, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_head, 1.0, false, screw_holder_fn);
             }            
+            // Small cutoff from the PCB screw holder to make room for the silicon buttons
+            translate([pcb_screw_holder_x_offset + pcb_screw_holder_height - silicon_button_piece_thickness, -screw_holder_diameter/2, pcb_screw_holder_z_offset - screw_holder_diameter * 1.25]) cube([screw_holder_diameter, screw_holder_diameter, screw_holder_diameter]);
             button_holes();
             if (clean_outer_surface) {
                 difference() {

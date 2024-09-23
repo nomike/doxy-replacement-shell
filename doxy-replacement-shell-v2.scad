@@ -307,7 +307,7 @@ module button_half() {
             button_holes();
             if (clean_outer_surface) {
                 difference() {
-                    translate([-100 + epsilon, -50, -epsilon]) cube([100, 100, 500]);
+                    translate([-99 + epsilon, -50, -epsilon]) cube([100, 100, 500]);
                     translate([0, 0, -epsilon]) draw_shaft_segments(shaft_segments, false, false);
                 }
             }

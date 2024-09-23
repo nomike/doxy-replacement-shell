@@ -31,7 +31,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // <kintel> ..or finally, minkowski() {your_model(); sphere();} is often a decent trick
 
 $fn = 128; // increase before final render
-wall_thickness = 2.5;
 
 shaft_segments = [
     [22.5, 10, 22.5, 10, 2.6],          // [0] Front plate with motor shaft cutout
@@ -45,31 +44,15 @@ shaft_segments = [
     [18.8, 16.3, 10.58, 8.08, 38.36],   // [8] Bottom section
     [10.58, 6, 10, 6, 2.64]             // [9] Bottom opening
 ];
-motor_shaft_cutout_width = 2.6;
-motor_shaft_cutout_radius = 10;
 
 aluminium_ring_section_with = 5;
-aluminium_ring_section_radius = 22.5;
-aluminium_ring_section_inner_overlap = 2.5;
 
 top_radius = 24;
 top_width = 55;
 
-motor_anchor_width = 7.5;
-motor_anchor_slit_width = 2.5;
-motor_anchor_slit_offeset = 2.5;
 
 grip_cone_width = 107;
 grip_cone_bottom_radius = 16.5;
-
-middle_section_cone_width = 26;
-middle_section_cone_radius = 18.8; 
-
-bottom_section_cone_width = 40;
-bottom_section_cone_radius = 10;
-
-bottom_opening_width = 2.64;
-bottom_opening_radius = 6;
 
 ridge_height = 1.0;
 
@@ -83,15 +66,12 @@ screw_holder_inner_diameter = 4.0;
 screw_holder_inner_diameter_button_half = 3.10;
 screw_holder_filet_diameter = 3.2;
 screw_holder_fn = 128;
-screw_holder_screwhead_insert_wall_thickness = 0.5;
 screw_holder_screwhead_insert_offset_cable = 3.5;
 screw_holder_screwhead_insert_offset_pcb = 6;
 screw_holder_screwhead_insert_offset_head = 2.5;
-screw_holder_screwhead_insert_depth = 10;
 screw_holder_screwhead_insert_diameter = 7;
 screw_holder_support_width = 5;
 
-top_screw_holder_height = 11;
 top_screw_holder_offset = 74;
 
 pcb_screw_holder_z_offset = 155.8;
@@ -101,7 +81,6 @@ silicon_button_piece_thickness = 1;
 
 bottom_screw_holder_z_offset = 190;
 bottom_screw_holder_x_offset = -17;
-bottom_screw_holder_height = 0 - bottom_screw_holder_x_offset;
 epsilon = 0.001;
 
 function sum_shaft_segment_heights(shaft_segments, from, to, sum=0) = 

@@ -46,7 +46,6 @@ shaft_segments = [                      // outer_radius1, inner_radius1, outer_r
     [10.58, 6, 10, 6, 2.64]             // [9] Bottom opening
 ];
 
-// top_radius = 24;
 top_width = 55;
 
 

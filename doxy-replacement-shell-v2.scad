@@ -32,7 +32,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 $fn = 128; // increase before final render
 
-shaft_segments = [
+
+shaft_segments = [                      // outer_radius1, inner_radius1, outer_radius2, inner_radius2, height
     [22.5, 10, 22.5, 10, 2.6],          // [0] Front plate with motor shaft cutout
     [22.5, 20, 22.5, 20, 2.4],          // [1] Motor shaft section
     [24, 20, 24, 20, 2.5],              // [2] Moter rubber ring pre-cutout
@@ -45,7 +46,7 @@ shaft_segments = [
     [10.58, 6, 10, 6, 2.64]             // [9] Bottom opening
 ];
 
-top_radius = 24;
+// top_radius = 24;
 top_width = 55;
 
 
@@ -104,7 +105,7 @@ grip_cone_reduction = shaft_segments[6][1] - shaft_segments[6][3];
 foo_offset = shaft_segments[6][1] - grip_cone_overlap_percent * grip_cone_reduction;
 display_gap = 1;
 
-clean_outer_surface = true;
+clean_outer_surface = false;
 
 render_buttonhalf = true;
 render_nonbuttonhalf = true;
@@ -242,7 +243,7 @@ module nonbutton_half() {
 module button_holes() {
     for (i = [0 : button_count - 1]) {
         button_z = button_offset + button_radius + i * button_gap;
-        translate([0 - top_radius, 0, button_z]) rotate([0,90,0])  cylinder(h=30, r=button_radius);
+        translate([0 - shaft_segments[5][0], 0, button_z]) rotate([0,90,0])  cylinder(h=30, r=button_radius);
     }
 }
 
@@ -253,7 +254,7 @@ module button_hole_ridges() {
         grip_cone_z2 = grip_cone_z + grip_cone_width;
 
         button_percent = (button_z - grip_cone_z) / (grip_cone_z2 - grip_cone_z);
-        button_x_offset = top_radius - ((top_radius - grip_cone_bottom_radius) * button_percent);
+        button_x_offset = shaft_segments[5][0] - ((shaft_segments[5][0] - grip_cone_bottom_radius) * button_percent);
         difference() {
             translate([0 - button_x_offset + 1, 0, button_z]) rotate([0,90,0])  cylinder(h=4, r=button_radius + 1);
             translate([0 - button_x_offset - 5, 0, button_z]) rotate([0,90,0])  cylinder(h=60, r=button_radius);
@@ -296,10 +297,10 @@ module button_half() {
 max_diameter = max(get_max_dimension(shaft_segments, 0), get_max_dimension(shaft_segments, 2));
 
 if (render_nonbuttonhalf) {
-    color("Aquamarine") 
+    // color("Aquamarine") 
     translate([0, -display_gap - max_diameter, 0]) nonbutton_half();
 }
 if (render_buttonhalf) {
-    color("Tomato")
+    // color("Tomato")
     translate([0, display_gap + max_diameter, 0]) button_half();
 }

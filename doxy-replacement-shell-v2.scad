@@ -46,10 +46,8 @@ shaft_segments = [                      // outer_radius1, inner_radius1, outer_r
     [10.58, 6, 10, 6, 2.64]             // [9] Bottom opening
 ];
 
-top_width = 55;
-
-
-grip_cone_width = 107;
+top_width = 55;         // TODO: Calculate this from the shaft_segments
+grip_cone_width = 107;  // TODO: Calculate this from the shaft_segments
 
 ridge_height = 1.0;
 

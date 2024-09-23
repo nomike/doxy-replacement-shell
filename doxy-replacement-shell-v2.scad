@@ -51,7 +51,6 @@ top_width = 55;
 
 
 grip_cone_width = 107;
-grip_cone_bottom_radius = 16.5;
 
 ridge_height = 1.0;
 
@@ -254,7 +253,7 @@ module button_hole_ridges() {
         grip_cone_z2 = grip_cone_z + grip_cone_width;
 
         button_percent = (button_z - grip_cone_z) / (grip_cone_z2 - grip_cone_z);
-        button_x_offset = shaft_segments[5][0] - ((shaft_segments[5][0] - grip_cone_bottom_radius) * button_percent);
+        button_x_offset = shaft_segments[5][0] - ((shaft_segments[5][0] - shaft_segments[6][2]) * button_percent);
         difference() {
             translate([0 - button_x_offset + 1, 0, button_z]) rotate([0,90,0])  cylinder(h=4, r=button_radius + 1);
             translate([0 - button_x_offset - 5, 0, button_z]) rotate([0,90,0])  cylinder(h=60, r=button_radius);

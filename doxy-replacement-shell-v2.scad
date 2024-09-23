@@ -45,8 +45,6 @@ shaft_segments = [
     [10.58, 6, 10, 6, 2.64]             // [9] Bottom opening
 ];
 
-aluminium_ring_section_with = 5;
-
 top_radius = 24;
 top_width = 55;
 
@@ -251,8 +249,8 @@ module button_holes() {
 module button_hole_ridges() {
     for (i = [0 : button_count - 1]) {
         button_z = button_offset + button_radius + i * button_gap;
-        grip_cone_z = aluminium_ring_section_with + top_width;
-        grip_cone_z2 = aluminium_ring_section_with + top_width + grip_cone_width;
+        grip_cone_z = shaft_segments[0][4] + top_width;
+        grip_cone_z2 = grip_cone_z + grip_cone_width;
 
         button_percent = (button_z - grip_cone_z) / (grip_cone_z2 - grip_cone_z);
         button_x_offset = top_radius - ((top_radius - grip_cone_bottom_radius) * button_percent);

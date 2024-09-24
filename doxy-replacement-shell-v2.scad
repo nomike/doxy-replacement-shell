@@ -34,8 +34,8 @@ $fn = 128; // increase before final render
 
 
 shaft_segments = [                      // outer_radius1, inner_radius1, outer_radius2, inner_radius2, height
-    [22.5, 10, 22.5, 10, 2.6],          // [0] Front plate with motor shaft cutout
-    [22.5, 20, 22.5, 20, 2.4],          // [1] Motor shaft section
+    [22.0, 10, 22.0, 10, 2.6],          // [0] Front plate with motor shaft cutout
+    [22.0, 20, 22.0, 20, 2.4],          // [1] Motor shaft section
     [24, 20, 24, 20, 2.5],              // [2] Moter rubber ring pre-cutout
     [24, 21.5, 24, 21.5, 2.5],          // [3] Motor rubber ring cutout
     [24, 20, 24, 20, 2.5],              // [4] Moter rubber ring post-cutout

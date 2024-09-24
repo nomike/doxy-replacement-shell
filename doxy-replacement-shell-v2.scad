@@ -180,7 +180,7 @@ module draw_shaft_segments(shaft_segments, outer_ridge, hollow=true, idx=0) {
     }
 }
 
-module screw_hole(screw_diameter, cylinder_diameter, height, fillet_diameter, screwhead_insert_diameter, screwhead_insert_depth, screw_holder_support_fraction = 1.0, screwhead_insert=false, fillet_fn=$fn) {
+module screw_hole(screw_diameter, cylinder_diameter, height, fillet_diameter, screwhead_insert_diameter, screwhead_insert_depth, screw_holder_support_fraction = 1.0, screwhead_insert=false, fillet_fn=$fn, screw_hole_support_angles=[0, 90, 180, 270]) {
     if(screwhead_insert) {
         translate([0, 0, -epsilon - 10]) cylinder(d=screwhead_insert_diameter, h=height - screwhead_insert_depth, $fn=fillet_fn);
     } else {
@@ -193,7 +193,7 @@ module screw_hole(screw_diameter, cylinder_diameter, height, fillet_diameter, sc
                 square([fillet_diameter, fillet_diameter]); 
                 translate([fillet_diameter, fillet_diameter]) circle(r=fillet_diameter, $fn=fillet_fn);
             }
-            for(i = [0, 90, 180, 270]) {
+            for(i = screw_hole_support_angles) {
                 rotate([0, 0, i]) screw_holder_support(cylinder_diameter, height - epsilon);
             }
         }
@@ -219,7 +219,7 @@ module nonbutton_half() {
             translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, 0 - bottom_screw_holder_x_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_cable, 1.0, false, screw_holder_fn);
 
             // screw holder at the head end of the grip
-            translate([0 - foo_offset, 0, top_screw_holder_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, foo_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_head, 0.7, false, screw_holder_fn);
+            translate([0 - foo_offset, 0, top_screw_holder_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter, screw_holder_diameter, foo_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_head, 0.7, false, screw_holder_fn, [90,180, 270]);
         }
         
         // screw holder at the cable end of the grip

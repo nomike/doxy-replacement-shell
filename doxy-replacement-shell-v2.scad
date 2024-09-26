@@ -51,7 +51,7 @@ grip_cone_width = 107;  // TODO: Calculate this from the shaft_segments
 
 ridge_height = 1.0;
 
-button_radius = 7.75;
+button_radius = 8.05;
 button_offset = 94.4;
 button_gap = 18;
 button_count = 3;

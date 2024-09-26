@@ -314,19 +314,15 @@ module button_half() {
                 screw_thingy(screw_holder_diameter, bottom_screw_holder_z_offset);
                 screw_thingy_support(screw_holder_diameter, bottom_screw_holder_z_offset);
 
-                // screw holder at the cable end of the grip
-                // translate([bottom_screw_holder_x_offset, 0, bottom_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter_button_half, screw_holder_diameter, 0 - bottom_screw_holder_x_offset + ridge_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_cable, 1.0, false, screw_holder_fn);
-
                 // screw holder for the PCB screw
                 screw_thingy(screw_holder_diameter, pcb_screw_holder_z_offset, 0, 11);
                 screw_thingy_support(screw_holder_diameter, pcb_screw_holder_z_offset, 0, 11);
 
-                // translate([pcb_screw_holder_x_offset, 0, pcb_screw_holder_z_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter_button_half, screw_holder_diameter, pcb_screw_holder_height, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_pcb, 1.0, false, screw_holder_fn);
 
-                // // screw holder at the head end of the grip
+                // screw holder at the head end of the grip
                 screw_thingy(screw_holder_diameter + 4, top_screw_holder_offset, 0, 16.4);
                 screw_thingy_support(screw_holder_diameter + 4, top_screw_holder_offset, 0, 16.4);
-                // translate([0 - foo_offset, 0, top_screw_holder_offset]) rotate([0, 90, 0]) screw_hole(screw_holder_inner_diameter_button_half, screw_holder_diameter, 7.4, screw_holder_filet_diameter, screw_holder_screwhead_insert_diameter, screw_holder_screwhead_insert_offset_head, 1.0, false, screw_holder_fn);
+
                 button_hole_ridges();
             }            
             translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter_button_half, bottom_screw_holder_z_offset, 2 * epsilon - 2.5);
@@ -337,7 +333,7 @@ module button_half() {
             
 
             screw_thingy_cutoff(screw_holder_diameter + 4, top_screw_holder_offset + 20, 0, 16.4 - epsilon, silicon_button_piece_thickness);
-            // // Small cutoff from the PCB screw holder to make room for the silicon buttons
+            // Small cutoff from the PCB screw holder to make room for the silicon buttons
             screw_thingy_cutoff(screw_holder_diameter, pcb_screw_holder_z_offset, 0, 11, silicon_button_piece_thickness);
             
             button_holes();

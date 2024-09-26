@@ -58,7 +58,7 @@ button_count = 3;
 
 screw_holder_diameter = 10;
 screw_holder_inner_diameter = 4.0;
-screw_holder_inner_diameter_button_half = 3.10;
+screw_holder_inner_diameter_button_half = 3.0;
 screw_holder_filet_diameter = 3.2;
 screw_holder_fn = 128;
 screw_holder_screwhead_insert_offset_cable = 3.5;

@@ -181,7 +181,6 @@ module draw_shaft_segments(shaft_segments, outer_ridge, hollow=true, idx=0) {
     }
 
     // Ridge
-
     if (outer_ridge) {
         rotate([0, 0, -90]) outer_ridge(outer_radius1, inner_radius1, outer_radius2, inner_radius2, ridge_height, height);
         translate([ridge_height, 0, 0]) rotate([0, 0, 90]) outer_ridge(outer_radius1, inner_radius1, outer_radius2, inner_radius2, ridge_height, height);
@@ -226,9 +225,9 @@ module screw_thingy_support(diameter, z_offset, add=0, center_offset=0, width=5,
     x_offset = shaft_segments[shaft_segment_index][0] - shaft_segment_offset_percent * (shaft_segments[shaft_segment_index][0] - shaft_segments[shaft_segment_index][2])
         + shaft_segments[shaft_segment_index][1] - shaft_segments[shaft_segment_index][0] + ridge_height;
 
-    translate([ridge_height - (x_offset + 2.5 + add) - epsilon, 0, z_offset]) rotate([0, 90, 0]) {
+    translate([ridge_height - (x_offset + 2.5 + add) - epsilon, 0, z_offset]) rotate([0, 90, 0]) { // TODO: Calculate or parameterize harcoded values
         for(i = screw_hole_support_angles) {
-            rotate([0, 0, i]) screw_holder_support(diameter, x_offset + 2.5 + add - center_offset);
+            rotate([0, 0, i]) screw_holder_support(diameter, x_offset + 2.5 + add - center_offset); // TODO: Calculate or parameterize harcoded values
         }
     }
 }
@@ -257,17 +256,17 @@ module nonbutton_half() {
             screw_thingy_support(screw_holder_diameter, bottom_screw_holder_z_offset);
             
             // screw holder at the head end of the grip
-            screw_thingy(screw_holder_diameter, top_screw_holder_offset);
-            screw_thingy_support(screw_holder_diameter, top_screw_holder_offset, 0, 0, 5, [90,180, 270]);
+            screw_thingy(screw_holder_diameter, top_screw_holder_offset, 0, -9);
+            screw_thingy_support(screw_holder_diameter, top_screw_holder_offset, 0, -7, 5, [90,180, 270]);
         }
 
         // screw holder at the cable end of the grip
-        translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter, bottom_screw_holder_z_offset, 1 + 2 * epsilon);
-        translate([epsilon, 0, 0]) screw_thingy(screw_holder_screwhead_insert_diameter, bottom_screw_holder_z_offset, 1 + 2 * epsilon, 3.15);
+        translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter, bottom_screw_holder_z_offset, 1 + 2 * epsilon);    // TODO: Calculate or parameterize harcoded values
+        translate([epsilon, 0, 0]) screw_thingy(screw_holder_screwhead_insert_diameter, bottom_screw_holder_z_offset, 1 + 2 * epsilon, 3.15);   // TODO: Calculate or parameterize harcoded values
         
         // screw holder at the head end of the grip
-        translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter, top_screw_holder_offset, 1 + 2 * epsilon);
-        translate([epsilon, 0, 0]) screw_thingy(screw_holder_screwhead_insert_diameter, top_screw_holder_offset, 1 + 2 * epsilon, 3.85);
+        translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter, top_screw_holder_offset, 1 + 2 * epsilon, -9); // TODO: Calculate or parameterize harcoded values
+        translate([epsilon, 0, 0]) screw_thingy(screw_holder_screwhead_insert_diameter, top_screw_holder_offset, 1 + 2 * epsilon, 3.85);    // TODO: Calculate or parameterize harcoded values
 
         if (clean_outer_surface) {
             clean_cube_height = sum_shaft_segment_heights(shaft_segments, 0, len(shaft_segments) -1) + epsilon;
@@ -297,8 +296,8 @@ module button_hole_ridges() {
         button_percent = (button_z - grip_cone_z) / (grip_cone_z2 - grip_cone_z);
         button_x_offset = shaft_segments[5][0] - ((shaft_segments[5][0] - shaft_segments[6][2]) * button_percent);
         difference() {
-            translate([0 - button_x_offset + 1, 0, button_z]) rotate([0,90,0])  cylinder(h=4, r=button_radius + 1);
-            translate([0 - button_x_offset - 5, 0, button_z]) rotate([0,90,0])  cylinder(h=60, r=button_radius);
+            translate([0 - button_x_offset + 1, 0, button_z]) rotate([0,90,0])  cylinder(h=4, r=button_radius + 1); // TODO: Calculate or parameterize harcoded values
+            translate([0 - button_x_offset - 5, 0, button_z]) rotate([0,90,0])  cylinder(h=60, r=button_radius);    // TODO: Calculate or parameterize harcoded values
         }
     }
 }
@@ -320,21 +319,21 @@ module button_half() {
 
 
                 // screw holder at the head end of the grip
-                screw_thingy(screw_holder_diameter + 4, top_screw_holder_offset, 0, 16.4);
-                screw_thingy_support(screw_holder_diameter + 4, top_screw_holder_offset, 0, 16.4);
+                screw_thingy(screw_holder_diameter + 4, top_screw_holder_offset, 0, 16.4);  // TODO: Calculate or parameterize harcoded values
+                screw_thingy_support(screw_holder_diameter + 4, top_screw_holder_offset, 0, 16.4);  // TODO: Calculate or parameterize harcoded values
 
                 button_hole_ridges();
             }            
-            translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter_button_half, bottom_screw_holder_z_offset, 2 * epsilon - 2.5);
-            translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter_button_half, pcb_screw_holder_z_offset, 2 * epsilon - 2.5, 11);
-            translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter_button_half, top_screw_holder_offset, 2 * epsilon - 1.5, 16.4);
-            translate([epsilon, 0, 0]) screw_thingy(6.45, top_screw_holder_offset, 2 * epsilon - 1.5 + 2.5, 19.5, $fn=6);             
+            translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter_button_half, bottom_screw_holder_z_offset, 2 * epsilon - 2.5);  // TODO: Calculate or parameterize harcoded values
+            translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter_button_half, pcb_screw_holder_z_offset, 2 * epsilon - 2.5, 11); // TODO: Calculate or parameterize harcoded values
+            translate([epsilon, 0, 0]) screw_thingy(screw_holder_inner_diameter_button_half, top_screw_holder_offset, 2 * epsilon - 1.5, 16.4); // TODO: Calculate or parameterize harcoded values
+            translate([epsilon, 0, 0]) screw_thingy(6.45, top_screw_holder_offset, 2 * epsilon - 1.5 + 2.5, 19.5, $fn=6);   // TODO: Calculate or parameterize harcoded values
             
             
 
-            screw_thingy_cutoff(screw_holder_diameter + 4, top_screw_holder_offset + 20, 0, 16.4 - epsilon, silicon_button_piece_thickness);
+            screw_thingy_cutoff(screw_holder_diameter + 4, top_screw_holder_offset + 20, 0, 16.4 - epsilon, silicon_button_piece_thickness);    // TODO: Calculate or parameterize harcoded values
             // Small cutoff from the PCB screw holder to make room for the silicon buttons
-            screw_thingy_cutoff(screw_holder_diameter, pcb_screw_holder_z_offset, 0, 11, silicon_button_piece_thickness);
+            screw_thingy_cutoff(screw_holder_diameter, pcb_screw_holder_z_offset, 0, 11, silicon_button_piece_thickness);   // TODO: Calculate or parameterize harcoded values
             
             button_holes();
             if (clean_outer_surface) {
@@ -343,7 +342,7 @@ module button_half() {
                 echo(clean_cube_width);
                 translate([0, 0, 0])  difference() {
                     translate([-clean_cube_width - ridge_height, -clean_cube_width / 2, 0]) cube([clean_cube_width, clean_cube_width, clean_cube_height]);
-                    translate([0, 0, epsilon]) scale([1.001, 1.001, 1.001]) draw_shaft_segments(shaft_segments, true, false);
+                    translate([0, 0, epsilon]) scale([1.001, 1.001, 1.001]) draw_shaft_segments(shaft_segments, true, false);   // TODO: Figure out why this scaling is necessart,
                 }
             }
         }

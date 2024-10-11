@@ -113,7 +113,7 @@ grip_cone_reduction = shaft_segments[6][1] - shaft_segments[6][3];
 foo_offset = shaft_segments[6][1] - grip_cone_overlap_percent * grip_cone_reduction;
 display_gap = 1;
 
-clean_outer_surface = true;
+clean_outer_surface = false;
 
 render_buttonhalf = true;
 render_nonbuttonhalf = true;
@@ -256,8 +256,8 @@ module nonbutton_half() {
             screw_thingy_support(screw_holder_diameter, bottom_screw_holder_z_offset);
             
             // screw holder at the head end of the grip
-            screw_thingy(screw_holder_diameter, top_screw_holder_offset, 0, -9);
-            screw_thingy_support(screw_holder_diameter, top_screw_holder_offset, 0, -7, 5, [90,180, 270]);
+            screw_thingy(screw_holder_diameter, top_screw_holder_offset, 0, -9);    // TODO: Calculate or parameterize harcoded values
+            screw_thingy_support(screw_holder_diameter, top_screw_holder_offset, 0, -7, 5, [90,180, 270]);  // TODO: Calculate or parameterize harcoded values
         }
 
         // screw holder at the cable end of the grip
@@ -351,10 +351,10 @@ module button_half() {
 
 
 if (render_nonbuttonhalf) {
-    color("Aquamarine")
+    // color("Aquamarine")
     translate([0, -display_gap - max_diameter, 0]) nonbutton_half();
 }
 if (render_buttonhalf) {
-    color("Tomato")
+    // color("Tomato")
     translate([0, display_gap + max_diameter, 0]) button_half();
 }

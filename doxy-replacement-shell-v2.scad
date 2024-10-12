@@ -575,7 +575,6 @@ module nonbutton_half() {
         if (clean_outer_surface) {
             clean_cube_height = sum_shaft_segment_heights(shaft_segments, 0, len(shaft_segments) -1) + epsilon;
             clean_cube_width = max(get_max_dimension(shaft_segments, 0), get_max_dimension(shaft_segments, 2)) * 3 + epsilon;
-            echo(clean_cube_width);
             translate([0, 0, 0])  difference() {
                 translate([-clean_cube_width - ridge_height, -clean_cube_width / 2, 0]) cube([clean_cube_width, clean_cube_width, clean_cube_height]);
                 translate([0, 0, epsilon]) scale([1.001, 1.001, 1.001]) draw_shaft_segments(shaft_segments, true, false);
@@ -627,7 +626,6 @@ module button_half() {
             if (clean_outer_surface) {
                 clean_cube_height = sum_shaft_segment_heights(shaft_segments, 0, len(shaft_segments) -1) + epsilon;
                 clean_cube_width = max(get_max_dimension(shaft_segments, 0), get_max_dimension(shaft_segments, 2)) * 3 + epsilon;
-                echo(clean_cube_width);
                 translate([0, 0, 0])  difference() {
                     translate([-clean_cube_width - ridge_height, -clean_cube_width / 2, 0]) cube([clean_cube_width, clean_cube_width, clean_cube_height]);
                     translate([0, 0, epsilon]) scale([1.001, 1.001, 1.001]) draw_shaft_segments(shaft_segments, true, false);   // TODO: Figure out why this scaling is necessart,

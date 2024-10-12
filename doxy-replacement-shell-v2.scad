@@ -258,8 +258,8 @@ display_gap = 1;
 // Screw holders and their supports protrude out of the shell. This flag enables code which removes
 // thes protrusion. This however massively slows down preview rendering and makes viewport
 // manipulation very slow. Therefore cleaning could be disabled during development.
-// For the final renderin, be sure to set this to true.
-clean_outer_surface = false;
+// For the final rendering, be sure to set this to true.
+clean_outer_surface = true;
 
 render_buttonhalf = true;
 render_nonbuttonhalf = true;

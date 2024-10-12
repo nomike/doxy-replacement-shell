@@ -1,1 +1,1 @@
-This is still work in progress. Probably 4 perimeters with 20% infill will work. As the part is likely to come in contact with oily substances or moisture during use, it might be a good idea to print this in PETG and not PLA.
+See <doxy-replacement-shell-v2.scad> for details on how to print and assemble this.
